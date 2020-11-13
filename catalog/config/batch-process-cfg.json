@@ -229,7 +229,7 @@
           "iso19139\\..*\\.voice",
           "iso19139\\..*\\.facsimile"
         ]
-      },
+      }, 
       "dublin-core": {
         "elements": [
           "dublin-core.simpledc.creator",
