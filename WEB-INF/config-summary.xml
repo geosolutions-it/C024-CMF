@@ -161,8 +161,9 @@
       <item facet="serviceType"/>
       <item facet="denominator" sortBy="numValue" sortOrder="desc"/>
       <item facet="resolution" sortBy="numValue" sortOrder="desc"/>
+
       <item facet="pubblicaAmministrazione"/>
-      <item facet="iPA"/>
+
       <!--
       <item facet="region"
             translator="term:http://geonetwork-opensource.org/thesaurus/naturalearth-and-seavox"/>
@@ -190,8 +191,8 @@
       <item facet="isHarvested" max="2" sortBy="value" translator="apploc:"/>
       <item facet="metadataType" max="3" sortBy="value" translator="apploc:recordType-"/>
 	    <item facet="isPublishedToAll" max="2" sortBy="value" translator="apploc:"/>
+
       <item facet="pubblicaAmministrazione" max="50"/>
-      <item facet="iPA" max="50"/>
     </summaryType>
 
     <!-- (deprecated) old-style configuration supporting only
@@ -216,8 +217,8 @@
       <item facet="serviceType"/>
       <item facet="denominator" sortBy="numValue" sortOrder="desc"/>
       <item facet="resolution" sortBy="numValue" sortOrder="desc"/>
+
       <item facet="pubblicaAmministrazione"/>
-      <item facet="iPA"/>
       <!--<item facet="metadataPOC" max="15"/>-->
     </summaryType>
     <summaryType name="subtemplates">
