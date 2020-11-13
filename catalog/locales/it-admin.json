@@ -1,4 +1,5 @@
 {
+    "Administrator": "Amministratore",
     "NEW": "Nuovo",
     "abstract": "Descrizione",
     "accessConstraints": "Vincoli di accesso",
@@ -56,6 +57,7 @@
     "batchreplacer-addReplacement": "Aggiungi sostituzione",
     "massive-search-and-replace": "Cerca e sostituisci",
     "batchreplacer-vacuum-mode": "Modalità vacuum",
+    "to-rndt2": "Aggiorna a RNDT v2",
     "schemaVersion": "Schema version:",
     "appMinorVersionSupported": "Application minor version supported:",
     "appMajorVersionSupported": "Application major version supported:",
