@@ -203,108 +203,115 @@
       <gmd:MD_Keywords>
          <xsl:for-each select="gmd:keyword">
             <gmd:keyword>
-               <xsl:if test="gco:CharacterString = 'Condizioni atmosferiche' or gco:CharacterString = 'Atmospheric conditions'">
+               <xsl:choose>
+               <xsl:when test="gco:CharacterString = 'Condizioni atmosferiche' or gco:CharacterString = 'Atmospheric conditions'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/ac">Condizioni atmosferiche</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Produzione e impianti industriali' or gco:CharacterString = 'Production and industrial facilities'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Produzione e impianti industriali' or gco:CharacterString = 'Production and industrial facilities'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/pf">Produzione e impianti industriali</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Copertura del suolo' or gco:CharacterString = 'Land cover'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Copertura del suolo' or gco:CharacterString = 'Land cover'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/lc">Copertura del suolo</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Regioni biogeografiche' or gco:CharacterString = 'Bio-geographical regions'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Regioni biogeografiche' or gco:CharacterString = 'Bio-geographical regions'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/br">Regioni biogeografiche</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Distribuzione della popolazione - demografia' or gco:CharacterString = 'Population distribution — demography'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Distribuzione della popolazione - demografia' or gco:CharacterString = 'Population distribution — demography'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/br">Distribuzione della popolazione - demografia</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Regioni marine' or gco:CharacterString = 'Sea regions'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Regioni marine' or gco:CharacterString = 'Sea regions'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/sr">Regioni marine</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Distribuzione delle specie' or gco:CharacterString = 'Species distribution'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Distribuzione delle specie' or gco:CharacterString = 'Species distribution'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/sd">Distribuzione delle specie</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Reti di trasporto' or gco:CharacterString = 'Transport networks'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Reti di trasporto' or gco:CharacterString = 'Transport networks'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/tn">Reti di trasporto</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Edifici' or gco:CharacterString = 'Buildings'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Edifici' or gco:CharacterString = 'Buildings'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/bu">Edifici</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Risorse energetiche' or gco:CharacterString = 'Energy resources'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Risorse energetiche' or gco:CharacterString = 'Energy resources'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/er">Risorse energetiche</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Elementi geografici meteorologici' or gco:CharacterString = 'Meteorological geographical features'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Elementi geografici meteorologici' or gco:CharacterString = 'Meteorological geographical features'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/mf">Elementi geografici meteorologici</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Risorse minerarie' or gco:CharacterString = 'Mineral resources'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Risorse minerarie' or gco:CharacterString = 'Mineral resources'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/mr">Risorse minerarie</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Elementi geografici oceanografici' or gco:CharacterString = 'Oceanographic geographical features'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Elementi geografici oceanografici' or gco:CharacterString = 'Oceanographic geographical features'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/of">Elementi geografici oceanografici</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Salute umana e sicurezza' or gco:CharacterString = 'Human health and safety'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Salute umana e sicurezza' or gco:CharacterString = 'Human health and safety'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/hh">Salute umana e sicurezza</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Elevazione' or gco:CharacterString = 'Elevation'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Elevazione' or gco:CharacterString = 'Elevation'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/el">Elevazione</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Servizi di pubblica utilità e servizi amministrativi' or gco:CharacterString = 'Utility and governmental services'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Servizi di pubblica utilità e servizi amministrativi' or gco:CharacterString = 'Utility and governmental services'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/us">Servizi di pubblica utilità e servizi amministrativi</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Geologia' or gco:CharacterString = 'Geology'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Geologia' or gco:CharacterString = 'Geology'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/ge">Geologia</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Sistemi di coordinate' or gco:CharacterString = 'Coordinate reference systems'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Sistemi di coordinate' or gco:CharacterString = 'Coordinate reference systems'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/rs">Sistemi di coordinate</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Habitat e biotopi' or gco:CharacterString = 'Habitats and biotopes'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Habitat e biotopi' or gco:CharacterString = 'Habitats and biotopes'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/hb">Habitat e biotopi</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Sistemi di griglie geografiche' or gco:CharacterString = 'Geographical grid systems'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Sistemi di griglie geografiche' or gco:CharacterString = 'Geographical grid systems'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/gg">Sistemi di griglie geografiche</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Idrografia' or gco:CharacterString = 'Hydrography'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Idrografia' or gco:CharacterString = 'Hydrography'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/hy">Idrografia</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Siti protetti' or gco:CharacterString = 'Protected sites'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Siti protetti' or gco:CharacterString = 'Protected sites'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/ps">Siti protetti</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Impianti agricoli e di acquacoltura' or gco:CharacterString = 'Agricultural and aquaculture facilities'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Impianti agricoli e di acquacoltura' or gco:CharacterString = 'Agricultural and aquaculture facilities'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/af">Impianti agricoli e di acquacoltura</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Suolo' or gco:CharacterString = 'Soil'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Suolo' or gco:CharacterString = 'Soil'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/so">Suolo</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Impianti di monitoraggio ambientale' or gco:CharacterString = 'Environmental monitoring facilities'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Impianti di monitoraggio ambientale' or gco:CharacterString = 'Environmental monitoring facilities'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/ef">Impianti di monitoraggio ambientale</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Unità amministrative' or gco:CharacterString = 'Administrative units'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Unità amministrative' or gco:CharacterString = 'Administrative units'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/au">Unità amministrative</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Indirizzi' or gco:CharacterString = 'Addresses'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Indirizzi' or gco:CharacterString = 'Addresses'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/ad">Indirizzi</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Unità statistiche' or gco:CharacterString = 'Statistical units'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Unità statistiche' or gco:CharacterString = 'Statistical units'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/su">Unità statistiche</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Nomi geografici' or gco:CharacterString = 'Geographical names'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Nomi geografici' or gco:CharacterString = 'Geographical names'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/gn">Nomi geografici</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Utilizzo del territorio' or gco:CharacterString = 'Land use'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Utilizzo del territorio' or gco:CharacterString = 'Land use'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/lu">Utilizzo del territorio</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Orto immagini' or gco:CharacterString = 'Orthoimagery'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Orto immagini' or gco:CharacterString = 'Orthoimagery'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/oi">Orto immagini</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Zone a rischio naturale' or gco:CharacterString = 'Natural risk zones'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Zone a rischio naturale' or gco:CharacterString = 'Natural risk zones'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/nz">Zone a rischio naturale</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Parcelle catastali' or gco:CharacterString = 'Cadastral parcels'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Parcelle catastali' or gco:CharacterString = 'Cadastral parcels'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/cp">Parcelle catastali</gmx:Anchor>
-               </xsl:if>
-               <xsl:if test="gco:CharacterString = 'Zone sottoposte a gestione/limitazioni/regolamentazione e unità con obbligo di comunicare dati' or gco:CharacterString = 'Area management/restriction/regulation zones and reporting units'">
+               </xsl:when>
+               <xsl:when test="gco:CharacterString = 'Zone sottoposte a gestione/limitazioni/regolamentazione e unità con obbligo di comunicare dati' or gco:CharacterString = 'Area management/restriction/regulation zones and reporting units'">
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/am">Zone sottoposte a gestione/limitazioni/regolamentazione e unità con obbligo di comunicare dati</gmx:Anchor>
-               </xsl:if>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:copy>
+                     <xsl:value-of select="gco:CharacterString"/>
+                  </xsl:copy>
+               </xsl:otherwise>
+               <xsl:choose>
             </gmd:keyword>
          </xsl:for-each>
          <gmd:thesaurusName>
@@ -553,7 +560,7 @@
       </xsl:choose>
    </xsl:template>
    <!-- Temporal extent -->
-   <xsl:template match="//gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
+   <xsl:template match="//gmd:identificationInfo/*/*:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
    <gmd:extent>
    <xsl:element name="gml:TimePeriod">
    <xsl:attribute name="gml:id"><xsl:value-of select="gml:TimePeriod/@gml:id"/></xsl:attribute>
