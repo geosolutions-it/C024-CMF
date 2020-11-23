@@ -15,8 +15,26 @@
   from RNDT metadata profile defined with the Decree 10 November 2011 (conformant to INSPIRE profile 1.3) to RNDT metadata profile 2.0 (conformant to INSPIRE profile 2.0)
 */ 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gfc="http://www.isotc211.org/2005/gfc" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gsr="http://www.isotc211.org/2005/gsr" xmlns:gss="http://www.isotc211.org/2005/gss" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation=" http://www.isotc211.org/2005/gmd http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/gmd/gmd.xsd ">
+<xsl:stylesheet xmlns="http://www.isotc211.org/2005/gmd"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  
+                xmlns:gco="http://www.isotc211.org/2005/gco" 
+                xmlns:gfc="http://www.isotc211.org/2005/gfc" 
+                xmlns:gmd="http://www.isotc211.org/2005/gmd" 
+                xmlns:gml="http://www.opengis.net/gml/3.2"
+                xmlns:gml320="http://www.opengis.net/gml"
+                xmlns:gmx="http://www.isotc211.org/2005/gmx" 
+                xmlns:gsr="http://www.isotc211.org/2005/gsr" 
+                xmlns:gss="http://www.isotc211.org/2005/gss" 
+                xmlns:gts="http://www.isotc211.org/2005/gts" 
+                xmlns:srv="http://www.isotc211.org/2005/srv" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" 
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                version="2.0" 
+                exclude-result-prefixes="#all">
+   
    <xsl:output method="xml" encoding="UTF-8" indent="yes" />
+   
+   <xsl:namespace-alias stylesheet-prefix="gml320" result-prefix="gml"/>
    <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       Dichiarazione di Variabili generali 
       ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
@@ -25,6 +43,7 @@
    <xsl:variable name="doppioapice">"</xsl:variable>
    <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'" />
    <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
    <!-- hierarchyLevel -->
       <xsl:variable name="hierarchyLevel">
          <xsl:choose>
@@ -82,22 +101,31 @@
    <!-- +++++++++++++++++++++++++++++++++++++
       Inizio Template 
       +++++++++++++++++++++++++++++++++++++-->
-   <!-- Match di tutti i template -->
+
+   <!-- ROOT NODE -->
+   <xsl:template match="/gmd:MD_Metadata">
+      <gmd:MD_Metadata>
+         <!-- Add the most used namespaces in root node-->
+         <xsl:namespace name="gmd" select="'http://www.isotc211.org/2005/gmd'"/>
+         <xsl:namespace name="gco" select="'http://www.isotc211.org/2005/gco'"/>
+         <xsl:namespace name="gmx" select="'http://www.isotc211.org/2005/gmx'"/>
+         <xsl:namespace name="gml" select="'http://www.opengis.net/gml/3.2'"/>
+         <xsl:namespace name="srv" select="'http://www.isotc211.org/2005/srv'"/>
+         <xsl:namespace name="xlink" select="'http://www.w3.org/1999/xlink'"/>
+
+         <xsl:apply-templates select="@* | node()" />
+      </gmd:MD_Metadata>
+   </xsl:template>
+
+   <!-- Nodo generico: copia integrale -->
    <xsl:template name="HeaderTemplate" match="@* | node()">
-     <xsl:copy>
+     <xsl:copy copy-namespaces="no">
+       <xsl:namespace name="gml" select="'http://www.opengis.net/gml/3.2'"/>
        <xsl:apply-templates select="@* | node()" />
      </xsl:copy>
    </xsl:template>
    
-    <!-- Aggiunta del namespace gmx e aggiunta dello schema se non esisteva  -->
-   <xsl:template name="Namespaces" match="gmd:MD_Metadata">
-      <gmd:MD_Metadata 
-         xmlns:gmx="http://www.isotc211.org/2005/gmx"
-         xsi:schemaLocation="http://www.isotc211.org/2005/gmd https://inspire.ec.europa.eu/draft-schemas/inspire-md-schemas-temp/apiso-inspire/apiso-inspire.xsd">
-         <xsl:apply-templates select="@* | node()" />
-      </gmd:MD_Metadata>
-   </xsl:template>
-    <!-- Sostituzione dello schema se già esisteva -->
+   <!-- Sostituzione dello schema se già esisteva -->
    <xsl:template match="@xsi:schemaLocation">
          <xsl:choose>
             <xsl:when  test="$hierarchyLevel = 'servizio'">
@@ -111,14 +139,13 @@
                </xsl:attribute>
             </xsl:otherwise>
          </xsl:choose>
-      <xsl:apply-templates select="@* | node()" />
    </xsl:template> 
    
    <!-- Codelist per lingua metadati e dati -->
    <xsl:template match="//gmd:language">
       <xsl:choose>
          <xsl:when test="gmd:LanguageCode/@codeList='http://www.loc.gov/standards/iso639-2/' or gmd:LanguageCode/@codeList='http://www.loc.gov/standards/iso639-2'">
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
       </xsl:when>
@@ -137,37 +164,34 @@
       </xsl:otherwise>
       </xsl:choose>
    </xsl:template> 
-   
+
    <!-- Character set -->
    <xsl:template match="//gmd:characterSet">
-      <xsl:comment>
-         <xsl:value-of select="concat(' Se l', $apice, 'elemento ', $doppioapice, 'set di caratteri dei metadati o dei dati', $doppioapice, ' è UTF8 può essere omesso ')" />
-      </xsl:comment>
-      <xsl:copy>
+      <xsl:comment>Se l'elemento "set di caratteri dei metadati o dei dati" è UTF8 può essere omesso</xsl:comment>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
    </xsl:template>
+
    <!-- Parent Identifier -->
    <xsl:template match="//gmd:parentIdentifier">
-      <xsl:comment>
-         <xsl:value-of select="concat(' L', $apice, 'elemento ', $doppioapice, 'Identificativo file precedente', $doppioapice, ' è opzionale e può essere omesso ')" />
-      </xsl:comment>
-      <xsl:copy>
+      <xsl:comment>L'elemento "Identificativo file precedente" è opzionale e può essere omesso</xsl:comment>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
    </xsl:template>
+   
    <!-- Web site and phone  -->
    <xsl:template match="//gmd:CI_Contact/gmd:phone | //gmd:CI_Contact/gmd:onlineResource">
-      <xsl:comment>
-         <xsl:value-of select="concat(' Gli elementi ', $doppioapice, 'Telefono e Sito web', $doppioapice, ' non sono più condizionati e possono essere omessi entrambi ')" />
-      </xsl:comment>
-      <xsl:copy>
+      <xsl:comment>Gli elementi "Telefono e Sito web" non sono più condizionati e possono essere omessi entrambi</xsl:comment>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
    </xsl:template>
+   
    <!-- Hierarchy Level  -->
    <xsl:template match="//gmd:hierarchyLevel">
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
       
@@ -179,14 +203,16 @@
          </gmd:hierarchyLevelName>
       </xsl:if>
    </xsl:template>
+   
    <xsl:template match="//gmd:hierarchyLevelName"/>
+   
    <!-- Metadata standard -->
    <xsl:template match="//gmd:metadataStandardName">
       <xsl:comment>
          <xsl:value-of select="'Il nuovo standard va indicato tramite un link gmx:Anchor'" />
       </xsl:comment>
       <gmd:metadataStandardName>
-         <gmx:Anchor xlink:href="http://registry.geodati.gov.it/document/rndt-lg">Linee guida RNDT</gmx:Anchor>
+         <gmx:Anchor xlink:href="http://registry.geodati.gov.it/document/rndt-lg">Linee Guida RNDT</gmx:Anchor>
       </gmd:metadataStandardName>
    </xsl:template>
    <xsl:template match="//gmd:metadataStandardVersion">
@@ -307,11 +333,11 @@
                   <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/theme/am">Zone sottoposte a gestione/limitazioni/regolamentazione e unità con obbligo di comunicare dati</gmx:Anchor>
                </xsl:when>
                <xsl:otherwise>
-                  <xsl:copy>
+                  <xsl:copy copy-namespaces="no">
                      <xsl:value-of select="gco:CharacterString"/>
                   </xsl:copy>
                </xsl:otherwise>
-               <xsl:choose>
+               </xsl:choose>
             </gmd:keyword>
          </xsl:for-each>
          <gmd:thesaurusName>
@@ -415,7 +441,7 @@
    </xsl:template>
    <xsl:template match="//gmd:resourceConstraints[gmd:MD_SecurityConstraints]">
       <xsl:comment>La sezione MD_SecurityConstraints è divenuta opzionale.</xsl:comment>
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
    </xsl:template>
@@ -559,26 +585,31 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+   
    <!-- Temporal extent -->
    <xsl:template match="//gmd:identificationInfo/*/*:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent">
-   <gmd:extent>
-   <xsl:element name="gml:TimePeriod">
-   <xsl:attribute name="gml:id"><xsl:value-of select="gml:TimePeriod/@gml:id"/></xsl:attribute>
-    <gml:beginPosition><xsl:value-of select="gml:TimePeriod/gml:beginPosition/text()"/></gml:beginPosition>
-    <xsl:choose>
-      <xsl:when test="gml:TimePeriod/gml:endPosition=''">             
-         <gml:endPosition indeterminatePosition="now"/>
-         </xsl:when>
-         <xsl:otherwise>
-         <gml:endPosition><xsl:value-of select="gml:TimePeriod/gml:endPosition"/></gml:endPosition>
-         </xsl:otherwise>
-         </xsl:choose>
-   </xsl:element>
-   </gmd:extent>
+      <gmd:extent>
+         <xsl:element name="gml:TimePeriod">
+            <xsl:attribute name="gml:id">
+               <xsl:value-of select="(gml:TimePeriod|gml320:TimePeriod)/(@gml:id|@gml320:id)"/>
+            </xsl:attribute>
+            <gml:beginPosition><xsl:value-of select="(gml:TimePeriod|gml320:TimePeriod)/(gml:beginPosition|gml320:beginPosition)/text()"/></gml:beginPosition>
+            <xsl:choose>
+               <xsl:when test="(gml:TimePeriod|gml320:TimePeriod)/(gml:endPosition|gml320:endPosition)=''">
+                  <gml:endPosition indeterminatePosition="now"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <gml:endPosition><xsl:value-of select="(gml:TimePeriod|gml320:TimePeriod)/(gml:endPosition|gml320:endPosition)"/></gml:endPosition>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:element>
+      </gmd:extent>
    </xsl:template>
+   
    <!-- Distribution Format -->
    <xsl:template match="//gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString">
       <xsl:comment>Per il nome e la versione del formato va utilizzato il link gmx:Anchor e la lista presente all'indirizzo http://inspire.ec.europa.eu/media-types.</xsl:comment>
+      
       <xsl:variable name="formatURI">
          <xsl:choose>
             <xsl:when test="contains(translate(., $uppercase, $lowercase), 'shp') or contains(translate(., $uppercase, $lowercase), 'shape')">
@@ -640,7 +671,7 @@
          </gmx:Anchor>
       </xsl:if>
       <xsl:if test="$formatURI = ''">
-         <xsl:copy>
+         <xsl:copy copy-namespaces="no">
             <xsl:apply-templates select="@* | node()" />
          </xsl:copy>
       </xsl:if>
@@ -786,7 +817,7 @@
    <xsl:template match="//gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:description[../../../../../../../gmd:identificationInfo/srv:SV_ServiceIdentification/srv:serviceType/gco:LocalName = 'other']" />
    <!-- Quality scope  -->
    <xsl:template match="//gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:scope/gmd:DQ_Scope/gmd:level">
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()"/>
       </xsl:copy>
       <xsl:if test="$hierarchyLevel = 'servizio'">
@@ -838,7 +869,7 @@
    
    <!-- Se la conformità non è specificata (nel caso di un servizio) va inserita. Si inserisce dopo l'ultimo nodo "report" -->
    <xsl:template match="//gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:report[not (./gmd:DQ_DomainConsistency/gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/*[contains(.,'REGOLAMENTO (UE) N. 1089/2010 DELLA COMMISSIONE')])][last()]">
-      <xsl:copy>
+      <xsl:copy copy-namespaces="no">
          <xsl:apply-templates select="@* | node()" />
       </xsl:copy>
       <!-- Lo devo aggiungere solo se non c'era -->
@@ -1299,10 +1330,24 @@
             </gmx:Anchor>
          </xsl:when>
          <xsl:otherwise>
-            <xsl:copy>
+            <xsl:copy copy-namespaces="no">
                <xsl:value-of select="." />
             </xsl:copy>
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
+
+
+    <xsl:template match="gml320:*">
+       <!--<xsl:message>REMAPPING GML <xsl:value-of select="name()"/></xsl:message>-->
+       <xsl:element name="gml:{local-name(.)}">
+          <xsl:apply-templates select="@*|node()"/>
+       </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="@gml320:*">
+       <!--<xsl:message>REMAPPING GML ATTRIBUTE <xsl:value-of select="name()"/></xsl:message>-->
+       <xsl:attribute name="gml:{local-name(.)}" select="."/>
+    </xsl:template>   
+    
 </xsl:stylesheet>
