@@ -1154,7 +1154,7 @@
                <xsl:value-of select="text()" />
             </gmx:Anchor>
          </xsl:when>
-         <xsl:when test="text() = 'Servizio di determinazione dell' + $apice + 'itinerario' or text() = 'spatialRouteDeterminationService'">
+         <xsl:when test="text() = concat('Servizio di determinazione dell',$apice,'itinerario') or text() = 'spatialRouteDeterminationService'">
             <gmx:Anchor xlink:href="http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/spatialRouteDeterminationService">
                <xsl:value-of select="text()" />
             </gmx:Anchor>
