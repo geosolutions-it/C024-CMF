@@ -32,7 +32,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
   <context:annotation-config/>
 
-  <context:property-placeholder location="${app.properties}"
+  <context:property-placeholder location="WEB-INF/config.properties"
                                 order="1"
                                 file-encoding="UTF-8"
                                 ignore-unresolvable="true"/>
@@ -77,8 +77,8 @@
   </bean>
 
   <bean id="language" class="org.fao.geonet.web.DefaultLanguage">
-    <property name="language" value="\${language.default}"/>
-    <property name="forceDefault" value="\${language.forceDefault}"/>
+    <property name="language" value="${language.default}"/>
+    <property name="forceDefault" value="${language.forceDefault}"/>
   </bean>
 
   <!-- Define the languages in the UI. Seems like these should come from database
